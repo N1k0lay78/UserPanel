@@ -1,0 +1,16 @@
+{% extends "base_form.html" %}
+{% from "macro.html" import form_data, form_submit %}
+
+{% block form %}
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+
+    {{ form_data(form) }}
+
+    {% if error %}
+    <p>{{error}}</p>
+    {% endif %}
+
+    {{ form_submit(form) }}
+</form>
+{% endblock %}

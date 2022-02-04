@@ -5,7 +5,7 @@ from data import db_session
 def raise_error(error, session=None):
     if session:
         session.close()
-    return {"message": error}, 1
+    return {"error": error}, 1
 
 
 def check_admin_status(email, need_status=1):

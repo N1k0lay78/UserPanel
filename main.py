@@ -1,16 +1,14 @@
 from flask import Flask
 from flask_login import LoginManager
 from data.user import User
-from data import db_session
 from user.user import user
+from session import db_session
 import config
 
 app = Flask(__name__)
 app.config.from_object(config)
 login_manager = LoginManager()
 login_manager.init_app(app)
-
-db_session.global_init("db/alotofdata.sqlite")
 
 
 @login_manager.user_loader

@@ -12,21 +12,22 @@ def check_password(password):
         return raise_error(errors[1])[0]
     if password.isalpha():
         return raise_error(errors[2])[0]
-    return True
+    return False
 
 
 def find_by_id(id, session):
     user = session.query(User).get(id)
     if not user:  
-        return raise_error(f"Пользователь не найден", session)
+        return raise_error(f"Пользователь не найден", session)[0]
     return user, session
 
 
 def user_check_password(user_email, password):
     session = db_session.create_session()
-    user = session.query(User).filter(User.email == user_email)
+    user = session.query(User).filter(User.email == user_email).first()
+    # print(user, user.check_password(password))
     if user and user.check_password(password):
-        res = {"success": "Добро пожаловать"}
+        res = {"success": "Добро пожаловать", "id": user.id}
     else:
         res = {"error": "Неправильный пароль или почта"}
     session.close()
@@ -70,11 +71,11 @@ def put_user(user_email, args):
         if key == 'fullname':
             user.fullname = args["fullname"]
     if "change_password" in args:  
-        if not user.check_password(args["password_1"]):
+        if user.check_password(args["password_1"]):
             return raise_error("Пароль не совпадает с текущим паролем", session)[0]  
         r = check_password(args['password_2'])
-        if type(r) is dict:
-            return r
+        if r:
+            return r[0]
         user.set_password(args['password_2'])
         count += 1  
     if count == 0:  
@@ -89,13 +90,13 @@ def create_new_user(args):
     session = db_session.create_session()
 
     if session.query(User).filter(User.email == args["email"]).first():
-        return raise_error("Этот email уже занят", session)
+        return raise_error("Этот email уже занят", session)[0]
 
     ch = check_password(args["password_1"])
-    if type(ch) is dict:
-        return ch
+    if ch:
+        return ch[0]
     if args["password_1"] != args["password_2"]:
-        return raise_error("Пароли не совпадают", session)
+        return raise_error("Пароли не совпадают", session)[0]
 
     new_user = User()
     new_user.fullname = args["fullname"]
