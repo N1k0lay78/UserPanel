@@ -5,17 +5,24 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from data.db_session import SqlAlchemyBase
 
 
-class Admin(SqlAlchemyBase, UserMixin, SerializerMixin):
-    __tablename__ = 'admin'
+class User(SqlAlchemyBase, UserMixin, SerializerMixin):
+    __tablename__ = 'user'
+
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
+    fullname = sqlalchemy.Column(sqlalchemy.String, index=True, unique=True, nullable=True)
     nickname = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    email = sqlalchemy.Column(sqlalchemy.String, unique=True, nullable=True)
+    email = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    status = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     image = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
+    type = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+
+    __mapper_args__ = {
+        'polymorphic_on': type,
+    }
+
     def __repr__(self):
-        return f'<Admin> {self.id} Админ {self.id} {self.email}'
+        return f'<Person> {self.id} Базовый юзер {self.nickname}'
 
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)

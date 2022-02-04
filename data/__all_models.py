@@ -1,1 +1,1 @@
-from data import admin
+from data import user
