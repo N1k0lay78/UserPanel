@@ -1,25 +1,16 @@
-{% from "macro.html" import input %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
+{% extends "base_form.html" %}
+{% from "macro.html" import form_data, form_submit %}
 
-        {{ input(form.fullname) }}
-        {{ input(form.nickname) }}
-        {{ input(form.email) }}
-        {{ input(form.password_1) }}
-        {{ input(form.password_2) }}
+{% block form %}
+<form action="" method="post">
+    {{ form.hidden_tag() }}
 
-        {% if error %}
-        <p>{{error}}</p>
-        {% endif %}
+    {{ form_data(form) }}
 
-        {{ form.submit(type="submit", class="btn btn-success submit") }}
-    </form>
-</body>
-</html>
+    {% if error %}
+    <p>{{error}}</p>
+    {% endif %}
+
+    {{ form_submit(form) }}
+</form>
+{% endblock %}

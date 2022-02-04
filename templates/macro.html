@@ -1,9 +1,31 @@
+{% macro form_data(form, class='form-control') -%}
+    {% for elem in form %}
+        {% if elem.type != "CSRFTokenField" and elem.type != "SubmitField" %}
+            {{ input(elem, class=class) }}
+        {% endif %}
+    {% endfor %}
+{%- endmacro %}
+
+{% macro form_submit(form, class='submit') -%}
+    <div class="form__submit">
+        {% for elem in form %}
+            {% if elem.type == "SubmitField" %}
+                {{ submit(elem, class=class) }}
+            {% endif %}
+        {% endfor %}
+    </div>
+{%- endmacro %}
+
 {% macro input(field, class='form-control') -%}
-{{ field.label }}<br>
-{{ field(class=class) }}<br>
-{% for error in field.errors %}
-<div class="alert alert-danger" role="alert">
-    {{ error }}
-</div>
-{% endfor %}
+    {{ field.label }}<br>
+    {{ field(class=class) }}
+    {% for error in field.errors %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% endfor %}
+{%- endmacro %}
+
+{% macro submit(field, class='submit') -%}
+    {{ field(type="submit", class=class) }}
 {%- endmacro %}

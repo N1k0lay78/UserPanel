@@ -23,7 +23,7 @@ def register():
         else:
             error = res["error"]
 
-    return render_template("register.html", form=form, error=error)
+    return render_template("register.html", form=form, error=error, form_title="Регистрация")
 
 
 @user.route("/login/", methods=['GET', 'POST'])
@@ -36,7 +36,7 @@ def login():
             return redirect("/")
         if "error" in res:
             error = res["error"]
-    return render_template("login.html", form=form, error=error)
+    return render_template("login.html", form=form, error=error, form_title="Логин")
 
 
 @user.route("/logout/", methods=['GET', 'POST'])
