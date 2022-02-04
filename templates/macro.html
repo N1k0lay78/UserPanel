@@ -1,0 +1,9 @@
+{% macro input(field, class='form-control') -%}
+{{ field.label }}<br>
+{{ field(class=class) }}<br>
+{% for error in field.errors %}
+<div class="alert alert-danger" role="alert">
+    {{ error }}
+</div>
+{% endfor %}
+{%- endmacro %}

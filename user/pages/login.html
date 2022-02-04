@@ -1,3 +1,4 @@
+{% from "macro.html" import input %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,40 +6,13 @@
     <title>Login</title>
 </head>
 <body>
-    <form action="" method="post" enctype=multipart/form-data>
+    <form action="" method="post">
         {{ form.hidden_tag() }}
 
-        {{ form.mail.label }}<br>
-        {{ form.mail(class="form-control") }}<br>
-        {% for error in form.mail.errors %}
-        <div class="alert alert-danger" role="alert">
-            {{ error }}
-        </div>
-        {% endfor %}
-
-        {{ form.nickname.label }}<br>
-        {{ form.nickname(class="form-control") }}<br>
-        {% for error in form.nickname.errors %}
-        <div class="alert alert-danger" role="alert">
-            {{ error }}
-        </div>
-        {% endfor %}
-
-        {{ form.password_1.label }}<br>
-        {{ form.password_1(class="form-control") }}<br>
-        {% for error in form.password_1.errors %}
-        <div class="alert alert-danger" role="alert">
-            {{ error }}
-        </div>
-        {% endfor %}
-
-        {{ form.password_2.label }}<br>
-        {{ form.password_2(class="form-control") }}<br>
-        {% for error in form.password_2.errors %}
-        <div class="alert alert-danger" role="alert">
-            {{ error }}
-        </div>
-        {% endfor %}
+        {{ input(form.mail) }}
+        {{ input(form.nickname) }}
+        {{ input(form.password_1) }}
+        {{ input(form.password_2) }}
 
         {% if error %}
         <p>{{error}}</p>
