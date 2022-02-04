@@ -1,0 +1,21 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    --bg: #f0f0f0;
+    --fbg: #f0a090;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg);
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 100vh;
+}

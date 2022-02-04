@@ -19,7 +19,7 @@ def register():
         error, res = check_password(form.password_1.data, form.password_2.data)
         if res:
             error = "*Вход в аккаунт*"
-    return render_template("login.html", form=form, error=error)
+    return render_template("login.html", form=form, error=error, form_title="Регистрация")
 
 
 @user.route("/login/", methods=['GET', 'POST'])
