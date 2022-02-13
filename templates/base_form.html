@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{{title}}</title>
-    <link rel="stylesheet" href="/static/css/base.css">
     {% block style %}
-    <link rel="stylesheet" href="/static/css/base_form.css">
     <link rel="stylesheet" href="/static/css/form.css">
     {% endblock %}
     {% block head %} {% endblock %}
@@ -21,6 +19,8 @@
         </div>
     </div>
     {% endblock %}
-    {% block end %} {% endblock %}
+    {% block end %}
+    <script src="/static/js/admin.js"></script>
+    {% endblock %}
 </body>
 </html>

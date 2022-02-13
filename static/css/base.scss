@@ -4,10 +4,12 @@
   box-sizing: border-box;
 }
 
+$light: #f0f0f0;
+$mid: #f0c8c0;
+$red: #f0a090;
+
 body {
-  background: #f0f0f0;
+  background: $light;
   width: 100%;
   min-height: 100vh;
 }
-
-/*# sourceMappingURL=base.css.map */

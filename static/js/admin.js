@@ -1,3 +1,19 @@
+function view_password() {
+    this.classList.toggle("hide");
+    let password = this.parentElement.getElementsByClassName("form__input")[0];
+    if (password.getAttribute("type") === "password") {
+        password.setAttribute("type", "text");
+    } else {
+        password.setAttribute("type", "password");
+    }
+}
+
+let view_buttons = document.getElementsByClassName("eye-button");
+for (let i = 0; i < view_buttons.length; i++) {
+    view_buttons[i].addEventListener("click", view_password);
+}
+
+
 function on_change_image_input() {
     if (this.files && this.files[0]) {
         let parent = this.parentElement;

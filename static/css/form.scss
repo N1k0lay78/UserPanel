@@ -1,4 +1,30 @@
+@import "base";
+
 .form {
+  &__container {
+    width: 100%;
+    background: $red;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid $mid;
+    & label {
+      user-select: none !important;
+    }
+  }
+  &__title {
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+    user-select: none !important;
+  }
+  &__wrapper {
+    margin: auto;
+    max-width: 400px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   &__images {
     width: 100%;
     display: grid;
@@ -10,29 +36,59 @@
     padding: 5px 10px 5px 10px;
     border-radius: 3px;
     border: 1px solid;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  &__password-wrapper {
+    position: relative;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    & > .eye-button {
+      position: absolute;
+      right: 10px;
+      top: 5px;
+      height: 20px;
+      width: 20px;
+      background-image: url("/static/img/show.svg");
+      cursor: pointer;
+      &.hide {
+        background-image: url("/static/img/hide.svg");
+      }
+    }
+  }
+  &__checkbox-wrapper {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
   }
   &__input {
     font-size: 1rem;
-    margin-top: 5px;
-    margin-bottom: 10px;
     &[type="password"], &[type="text"] {
-      background: var(--bg);
+      background: $light;
       width: 100%;
       padding: 5px 10px 5px 10px;
       border-radius: 3px;
       border: 1px solid;
     }
     &[type="checkbox"] {
-      background: var(--bg);
-      width: 13px;
+      background: $light;
+      width: 14px;
+      height: 14px;
       margin-right: 5px;
     }
     @at-root select#{&} {
-      background: var(--bg);
+      background: $light;
       width: 100%;
       padding: 5px 10px 5px 10px;
       border-radius: 3px;
       border: 1px solid;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("/static/img/arrow-down.svg");
+      background-repeat: no-repeat;
+      background-position: calc(100% - 6px) 4px;
+      background-size: 20px 20px;
     }
     &:focus-visible {
       outline: none;
@@ -96,6 +152,7 @@
   }
 
   &__submit-block {
+    padding-top: 10px;
     width: 100%;
     display: flex;
     justify-content: end;

@@ -1,3 +1,39 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f0f0f0;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.form__container {
+  width: 100%;
+  background: #f0a090;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #f0c8c0;
+}
+.form__container label {
+  user-select: none !important;
+}
+.form__title {
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  user-select: none !important;
+}
+.form__wrapper {
+  margin: auto;
+  max-width: 400px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .form__images {
   width: 100%;
   display: grid;
@@ -9,30 +45,60 @@
   padding: 5px 10px 5px 10px;
   border-radius: 3px;
   border: 1px solid;
-}
-.form__input {
   font-size: 1rem;
+  cursor: pointer;
+}
+.form__password-wrapper {
+  position: relative;
   margin-top: 5px;
   margin-bottom: 10px;
 }
+.form__password-wrapper > .eye-button {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  height: 20px;
+  width: 20px;
+  background-image: url("/static/img/show.svg");
+  cursor: pointer;
+}
+.form__password-wrapper > .eye-button.hide {
+  background-image: url("/static/img/hide.svg");
+}
+.form__checkbox-wrapper {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+.form__input {
+  font-size: 1rem;
+}
 .form__input[type=password], .form__input[type=text] {
-  background: var(--bg);
+  background: #f0f0f0;
   width: 100%;
   padding: 5px 10px 5px 10px;
   border-radius: 3px;
   border: 1px solid;
 }
 .form__input[type=checkbox] {
-  background: var(--bg);
-  width: 13px;
+  background: #f0f0f0;
+  width: 14px;
+  height: 14px;
   margin-right: 5px;
 }
 select.form__input {
-  background: var(--bg);
+  background: #f0f0f0;
   width: 100%;
   padding: 5px 10px 5px 10px;
   border-radius: 3px;
   border: 1px solid;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("/static/img/arrow-down.svg");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 6px) 4px;
+  background-size: 20px 20px;
 }
 
 .form__input:focus-visible {
@@ -89,6 +155,7 @@ select.form__input {
   display: none;
 }
 .form__submit-block {
+  padding-top: 10px;
   width: 100%;
   display: flex;
   justify-content: end;
