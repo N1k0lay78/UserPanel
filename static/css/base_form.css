@@ -20,11 +20,6 @@
     font-size: 1.2rem;
 }
 
-.form__submit {
-    display: flex;
-    justify-content: center;
-}
-
 .form-control {
     margin-bottom: 10px;
 }

@@ -1,13 +1,77 @@
-{% macro form_data(form, class='form-control') -%}
+<!-- inputs of form-->
+{% macro form_data(form, class='form__input') -%}
     {% for elem in form %}
-        {% if elem.type != "CSRFTokenField" and elem.type != "SubmitField" %}
+        {% if elem.type == "BooleanField" %}
+            {{ check_box(elem, class=class) }}
+        {% elif elem.type != "CSRFTokenField" and elem.type != "SubmitField" and elem.type != "FileField"  %}
             {{ input(elem, class=class) }}
         {% endif %}
     {% endfor %}
 {%- endmacro %}
 
-{% macro form_submit(form, class='submit') -%}
-    <div class="form__submit">
+{% macro check_box(field, class='form__input') -%}
+    {{ field(class=class) }}
+    {{ field.label }}
+    {% for error in field.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+{%- endmacro %}
+
+{% macro input(field, class='form__input') -%}
+    {{ field.label }}<br>
+    {{ field(class=class) }}
+    {% for error in field.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+{%- endmacro %}
+
+<!-- inputs icon of form-->
+{% macro form_icon(form, id) -%}
+    <div class="form__icons">
+        {% for elem in form %}
+            {% if elem.name == "icon_"+id %}
+                {{ input_icon(elem) }}
+            {% endif %}
+        {% endfor %}
+    </div>
+{%- endmacro %}
+
+{% macro input_icon(field) -%}
+<div class="form__icon-wrapper">
+    <div class="form__icon-container">
+        <img src="" alt="" class="form__icon-preview">
+        {{ field(class="form__icon") }}
+    </div>
+</div>
+{%- endmacro %}
+
+{% macro form_image(form) -%}
+<div class="form__images">
+    {% for elem in form %}
+        {% if "image_" in elem.name %}
+            {{ input_image(elem) }}
+        {% endif %}
+    {% endfor %}
+</div>
+{%- endmacro %}
+
+{% macro input_image(field) -%}
+<div class="form__icon-wrapper">
+    <div class="form__icon-container">
+        <img src="" alt="" class="form__icon-preview">
+        {{ field(class="form__icon") }}
+        <div class="form__icon-delete"></div>
+    </div>
+</div>
+{%- endmacro %}
+
+<!-- inputs submit of form-->
+{% macro form_submit(form, class='form__submit') -%}
+    <div class="form__submit-block">
         {% for elem in form %}
             {% if elem.type == "SubmitField" %}
                 {{ submit(elem, class=class) }}
@@ -16,16 +80,6 @@
     </div>
 {%- endmacro %}
 
-{% macro input(field, class='form-control') -%}
-    {{ field.label }}<br>
-    {{ field(class=class) }}
-    {% for error in field.errors %}
-        <div class="alert alert-danger" role="alert">
-            {{ error }}
-        </div>
-    {% endfor %}
-{%- endmacro %}
-
-{% macro submit(field, class='submit') -%}
+{% macro submit(field, class='form__submit') -%}
     {{ field(type="submit", class=class) }}
 {%- endmacro %}

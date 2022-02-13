@@ -22,3 +22,13 @@ class FormLogin(FlaskForm):
 
 class Edit(FlaskForm):
     header_img = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
+
+
+class Test(FlaskForm):
+    icon_1 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
+    image_1 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
+    image_2 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
+    image_3 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
+    image_4 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
+    image_5 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
+    submit = SubmitField("Отправить")
