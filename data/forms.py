@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed
-from wtforms import PasswordField, StringField, SubmitField, BooleanField, FileField
+from wtforms import PasswordField, StringField, SubmitField, BooleanField, FileField, SelectField
 from wtforms.validators import DataRequired, Length
 
 
@@ -31,4 +31,12 @@ class Test(FlaskForm):
     image_3 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
     image_4 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
     image_5 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
+    submit = SubmitField("Отправить")
+
+
+class Test2(FlaskForm):
+    string = StringField("Строка", validators=[DataRequired()])
+    password = PasswordField("Пароль", validators=[DataRequired()])
+    boolean = BooleanField("TF поле")
+    select = SelectField(choices=((1, "one"), (2, "two"), (3, "three")))
     submit = SubmitField("Отправить")

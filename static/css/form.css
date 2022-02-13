@@ -5,6 +5,39 @@
   grid-gap: 5px;
   padding: 15px 0;
 }
+.form__submit {
+  padding: 5px 10px 5px 10px;
+  border-radius: 3px;
+  border: 1px solid;
+}
+.form__input {
+  font-size: 1rem;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.form__input[type=password], .form__input[type=text] {
+  background: var(--bg);
+  width: 100%;
+  padding: 5px 10px 5px 10px;
+  border-radius: 3px;
+  border: 1px solid;
+}
+.form__input[type=checkbox] {
+  background: var(--bg);
+  width: 13px;
+  margin-right: 5px;
+}
+select.form__input {
+  background: var(--bg);
+  width: 100%;
+  padding: 5px 10px 5px 10px;
+  border-radius: 3px;
+  border: 1px solid;
+}
+
+.form__input:focus-visible {
+  outline: none;
+}
 .form__icons {
   width: 100%;
   display: flex;

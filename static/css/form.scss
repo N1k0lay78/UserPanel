@@ -6,6 +6,38 @@
     grid-gap: 5px;
     padding: 15px 0;
   }
+  &__submit {
+    padding: 5px 10px 5px 10px;
+    border-radius: 3px;
+    border: 1px solid;
+  }
+  &__input {
+    font-size: 1rem;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    &[type="password"], &[type="text"] {
+      background: var(--bg);
+      width: 100%;
+      padding: 5px 10px 5px 10px;
+      border-radius: 3px;
+      border: 1px solid;
+    }
+    &[type="checkbox"] {
+      background: var(--bg);
+      width: 13px;
+      margin-right: 5px;
+    }
+    @at-root select#{&} {
+      background: var(--bg);
+      width: 100%;
+      padding: 5px 10px 5px 10px;
+      border-radius: 3px;
+      border: 1px solid;
+    }
+    &:focus-visible {
+      outline: none;
+    }
+  }
 
   &__icons {
     width: 100%;

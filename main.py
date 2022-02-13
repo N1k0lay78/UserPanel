@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect
 from flask_login import LoginManager
 
-from data.forms import Test
+from data.forms import Test, Test2
 from data.user import User
 from user.user import user
 from session import db_session
@@ -41,6 +41,13 @@ def test():
     form = Test()
     error = "Error"
     return render_template("test.html", form=form, error=error, form_title="Test page")
+
+
+@app.route("/test2/", methods=['GET', 'POST'])
+def test2():
+    form = Test2()
+    error = "Error"
+    return render_template("test2.html", form=form, error=error, form_title="Test page")
 
 
 app.register_blueprint(user, url_prefix="/user")
