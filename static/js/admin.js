@@ -29,7 +29,7 @@ function on_change_image_input() {
 function delete_image() {
     let parent = this.parentElement;
     parent.getElementsByClassName("form__icon-preview")[0].removeAttribute('src');
-    parent.getElementsByClassName("form__icon")[0].removeAttribute('files');
+    parent.getElementsByClassName("form__icon")[0].files = null;
     let image_inputs = parent.parentElement.parentElement.getElementsByClassName("form__icon-container");
     let start_swap = false;
     for (let i = 0; i < image_inputs.length - 1; i++) {
