@@ -59,11 +59,11 @@ body {
   top: 5px;
   height: 20px;
   width: 20px;
-  background-image: url("/static/img/show.svg");
+  background-image: url("/static/img/hide.svg");
   cursor: pointer;
 }
 .form__password-wrapper > .eye-button.hide {
-  background-image: url("/static/img/hide.svg");
+  background-image: url("/static/img/show.svg");
 }
 .form__checkbox-wrapper {
   margin-top: 5px;
