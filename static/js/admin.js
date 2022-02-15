@@ -1,19 +1,3 @@
-function view_password() {
-    this.classList.toggle("hide");
-    let password = this.parentElement.getElementsByClassName("form__input")[0];
-    if (password.getAttribute("type") === "password") {
-        password.setAttribute("type", "text");
-    } else {
-        password.setAttribute("type", "password");
-    }
-}
-
-let view_buttons = document.getElementsByClassName("eye-button");
-for (let i = 0; i < view_buttons.length; i++) {
-    view_buttons[i].addEventListener("click", view_password);
-}
-
-
 function on_change_image_input() {
     if (this.files && this.files[0]) {
         let parent = this.parentElement;
@@ -29,7 +13,8 @@ function on_change_image_input() {
 function delete_image() {
     let parent = this.parentElement;
     parent.getElementsByClassName("form__icon-preview")[0].removeAttribute('src');
-    parent.getElementsByClassName("form__icon")[0].files = null;
+    parent.getElementsByClassName("form__icon")[0].type = "text";
+    parent.getElementsByClassName("form__icon")[0].type = "file";
     let image_inputs = parent.parentElement.parentElement.getElementsByClassName("form__icon-container");
     let start_swap = false;
     for (let i = 0; i < image_inputs.length - 1; i++) {
@@ -40,7 +25,8 @@ function delete_image() {
             image_inputs[i].getElementsByClassName("form__icon-preview")[0].setAttribute("src", image_inputs[i+1].getElementsByClassName("form__icon-preview")[0].getAttribute("src"));
             image_inputs[i].getElementsByClassName("form__icon")[0].files = image_inputs[i+1].getElementsByClassName("form__icon")[0].files;
             image_inputs[i+1].getElementsByClassName("form__icon-preview")[0].removeAttribute('src');
-            image_inputs[i+1].getElementsByClassName("form__icon")[0].files = null;
+            image_inputs[i+1].getElementsByClassName("form__icon")[0].type = "text";
+            image_inputs[i+1].getElementsByClassName("form__icon")[0].type = "file";
         }
     }
     check_images_empty()
@@ -87,3 +73,18 @@ function check_images_empty() {
 }
 
 check_images_empty();
+
+function view_password() {
+    this.classList.toggle("hide");
+    let password = this.parentElement.getElementsByClassName("form__input")[0];
+    if (password.getAttribute("type") === "password") {
+        password.setAttribute("type", "text");
+    } else {
+        password.setAttribute("type", "password");
+    }
+}
+
+let view_buttons = document.getElementsByClassName("eye-button");
+for (let i = 0; i < view_buttons.length; i++) {
+    view_buttons[i].addEventListener("click", view_password);
+}
