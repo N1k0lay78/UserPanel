@@ -56,11 +56,14 @@
 </div>
 {%- endmacro %}
 
-{% macro form_image(form) -%}
+<!-- input images of form-->
+{% macro form_image(form, count=100) -%}
 <div class="form__images">
+    {% set ns = namespace(have=false) %}
     {% for elem in form %}
-        {% if "image_" in elem.name %}
+        {% if "image_" in elem.name and ns.have < count %}
             {{ input_image(elem) }}
+            {% set ns.have = ns.have + 1 %}
         {% endif %}
     {% endfor %}
 </div>
