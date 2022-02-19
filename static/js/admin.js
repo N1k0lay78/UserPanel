@@ -48,6 +48,7 @@ function check_images_empty() {
         let children = images_input[0].children;
         let is_first = true;
         for (let j=0; j < children.length; j++) {
+            console.log(children[j].getElementsByClassName("form__icon"))
             if (!children[j].getElementsByClassName("form__icon")[0].files[0]) {
                 children[j].getElementsByClassName("form__icon-delete")[0].classList.add("hidden");
                 if (is_first) {

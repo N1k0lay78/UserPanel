@@ -1,16 +1,31 @@
-from flask import Flask, render_template, redirect
+import os
+from flask import Flask, render_template, redirect, request
 from flask_login import LoginManager
-
 from data.forms import Test, Test2
 from data.user import User
 from user.user import user
 from session import db_session
 import config
 
+
 app = Flask(__name__)
 app.config.from_object(config)
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+
+def delete_img(filename):
+    for image_format in app.config['SUPPORTED_FORMATS']:
+        if filename != "" and os.path.exists(f"{app.config['UPLOAD_FOLDER']}{filename}.{image_format}"):
+            os.remove(f"{app.config['UPLOAD_FOLDER']}{filename}.{image_format}")
+
+
+def get_files_from(folder, path=app.config["UPLOAD_FOLDER"]):
+    files = []
+    if os.path.exists(path+folder):
+        files = os.listdir(path+folder)
+    files = [folder+"/"+f for f in files]
+    return files
 
 
 @login_manager.user_loader
@@ -40,6 +55,34 @@ def favicon():
 def test():
     form = Test()
     error = "Error"
+    print("A?")
+    upload_folder = "for_test"
+    if request.method == "POST":
+        print("B?")
+        for i in range(1, 21):
+            inf = form[f"image_{i}"].data
+            # print(form[f"image_{i}"])
+            # print(form[f"image_{i}"].data)
+            if inf.filename != "":
+                if inf.filename.split(".")[-1] in app.config['SUPPORTED_FORMATS']:
+                    delete_img(f"{upload_folder}/{inf.name}")
+                    inf.save(f'{app.config["UPLOAD_FOLDER"]}{upload_folder}/{inf.name}.{inf.filename.split(".")[-1]}')
+            else:
+                delete_img(f"{upload_folder}/{inf.name}")
+    for i, filename in enumerate(get_files_from("for_test"), start=1):
+        # print(form[f"image_{i}"])
+        # print(form[f"image_{i}"].data.__dict__)
+        # form[f"image_{i}"].data.filename = "/" + app.config["UPLOAD_FOLDER"] + filename
+        # form[f"image_{i}"].name_2 = "aasfasfasfasf"
+        # print(form[f"image_{i}"].raw_data)
+        # print(help(form[f"image_{i}"].data))
+        # form[f"image_{i}"].name_2 = "AAAAAAAAA"
+        # form[f"image_{i}"].data.name_2 = "AAAAAAAAA"
+        form[f"image_{i}"]["name_2"] = "SYKA BLYAT"
+        print(form[f"image_{i}"].__dict__)
+    # print(form[f"image_{10}"].raw_data)
+
+    print("D?")
     return render_template("test.html", form=form, error=error, form_title="Test page")
 
 
