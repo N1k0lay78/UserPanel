@@ -6,8 +6,6 @@ from data.user import User
 from user.user import user
 from session import db_session
 import config
-from PIL import Image
-from wtforms.fields.simple import FileField
 
 app = Flask(__name__)
 app.config.from_object(config)

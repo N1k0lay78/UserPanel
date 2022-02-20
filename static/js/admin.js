@@ -13,7 +13,7 @@ function on_change_image_input() {
 
 function delete_image() {
     let parent = this.parentElement;
-    parent.getElementsByClassName("form__icon-preview")[0].removeAttribute('src');
+    parent.getElementsByClassName("form__icon-preview")[0].setAttribute('src', "");
     parent.getElementsByClassName("form__icon")[0].type = "text";
     parent.getElementsByClassName("form__icon")[0].type = "file";
     let image_inputs = parent.parentElement.parentElement.getElementsByClassName("form__icon-container");
@@ -25,7 +25,7 @@ function delete_image() {
         if (start_swap) {
             image_inputs[i].getElementsByClassName("form__icon-preview")[0].setAttribute("src", image_inputs[i+1].getElementsByClassName("form__icon-preview")[0].getAttribute("src"));
             image_inputs[i].getElementsByClassName("form__icon")[0].files = image_inputs[i+1].getElementsByClassName("form__icon")[0].files;
-            image_inputs[i+1].getElementsByClassName("form__icon-preview")[0].removeAttribute('src');
+            image_inputs[i+1].getElementsByClassName("form__icon-preview")[0].setAttribute('src', "");
             image_inputs[i+1].getElementsByClassName("form__icon")[0].type = "text";
             image_inputs[i+1].getElementsByClassName("form__icon")[0].type = "file";
         }
@@ -48,9 +48,10 @@ function check_images_empty() {
     for (let i=0; i < images_input.length; i++) {
         let children = images_input[0].children;
         let is_first = true;
+        console.log("ASDADSA");
         for (let j=0; j < children.length; j++) {
-            console.log(children[j].getElementsByClassName("form__icon")[0].files)
-            if (!children[j].getElementsByClassName("form__icon")[0].files[0]) {
+            console.log(children[j].getElementsByClassName("form__icon-preview")[0].getAttribute("src"))
+            if (!children[j].getElementsByClassName("form__icon")[0].files[0] && (children[j].getElementsByClassName("form__icon-preview")[0].getAttribute("src") === "" || children[j].getElementsByClassName("form__icon-preview")[0].getAttribute("src") === "/static/img/plus.svg")) {
                 children[j].getElementsByClassName("form__icon-delete")[0].classList.add("hidden");
                 if (is_first) {
                     children[j].classList.remove("hidden");

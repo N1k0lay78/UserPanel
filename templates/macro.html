@@ -57,22 +57,22 @@
 {%- endmacro %}
 
 <!-- input images of form-->
-{% macro form_image(form, count=100) -%}
+{% macro form_image(form, filenames, count=100) -%}
 <div class="form__images">
-    {% set ns = namespace(have=false) %}
+    {% set ns = namespace(have=0) %}
     {% for elem in form %}
         {% if "image_" in elem.name and ns.have < count %}
-            {{ input_image(elem) }}
+            {{ input_image(elem, filenames) }}
             {% set ns.have = ns.have + 1 %}
         {% endif %}
     {% endfor %}
 </div>
 {%- endmacro %}
 
-{% macro input_image(field) -%}
+{% macro input_image(field, filenames) -%}
 <div class="form__icon-wrapper">
     <div class="form__icon-container">
-        <img src="" alt="" class="form__icon-preview">
+        <img src="{{ filenames[field.name] }}" alt="" class="form__icon-preview">
         {{ field(class="form__icon") }}
         <div class="form__icon-delete"></div>
     </div>

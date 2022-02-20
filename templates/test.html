@@ -6,7 +6,7 @@
     {{ form.hidden_tag() }}
 
     {{ form_data(form) }}
-    {{ form_image(form) }}
+    {{ form_image(form, filenames, count = 4) }}
     {{ form_icon(form, '1') }}
 
     {% if error %}
