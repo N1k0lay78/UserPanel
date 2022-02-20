@@ -3,6 +3,7 @@ function on_change_image_input() {
         let parent = this.parentElement;
         let fr = new FileReader();
         fr.onload = function () {
+            // console.log(parent)
             parent.getElementsByClassName("form__icon-preview")[0].setAttribute("src", fr.result);
             check_images_empty();
         }
@@ -48,7 +49,7 @@ function check_images_empty() {
         let children = images_input[0].children;
         let is_first = true;
         for (let j=0; j < children.length; j++) {
-            console.log(children[j].getElementsByClassName("form__icon"))
+            console.log(children[j].getElementsByClassName("form__icon")[0].files)
             if (!children[j].getElementsByClassName("form__icon")[0].files[0]) {
                 children[j].getElementsByClassName("form__icon-delete")[0].classList.add("hidden");
                 if (is_first) {

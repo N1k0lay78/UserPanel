@@ -6,8 +6,8 @@ from data.user import User
 from user.user import user
 from session import db_session
 import config
-from werkzeug.datastructures import FileStorage
-
+from PIL import Image
+from wtforms.fields.simple import FileField
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -63,25 +63,15 @@ def test():
             # print(form[f"image_{i}"])
             if inf.filename != "":
                 if inf.filename.split(".")[-1] in app.config['SUPPORTED_FORMATS']:
+                    print(form[f"image_{i}"])
+                    print(type(form[f"image_{i}"]))
                     delete_img(f"{upload_folder}/{inf.name}")
                     inf.save(f'{app.config["UPLOAD_FOLDER"]}{upload_folder}/{inf.name}.{inf.filename.split(".")[-1]}')
             else:
                 delete_img(f"{upload_folder}/{inf.name}")
-    filenames = []
+    filenames = {}
     for i, filename in enumerate(get_files_from("for_test"), start=1):
-        # print(form[f"image_{i}"])
-        # print(form[f"image_{i}"].data.__dict__)
-        # form[f"image_{i}"].filename = "/" + app.config["UPLOAD_FOLDER"] + filename
-        # form[f"image_{i}"].name_2 = "aasfasfasfasf"
-        # print(form[f"image_{i}"].raw_data)
-        # print(help(form[f"image_{i}"].data))
-        # form[f"image_{i}"].name_2 = "AAAAAAAAA"
-        # form[f"image_{i}"].data.name_2 = "AAAAAAAAA"
-        # print(form[f"image_{i}"].name)
-        # form[f"image_{i}"].name
-        # form[f"image_{i}"].att = "SYKA BLYAT"
-        filenames.append("/" + app.config["UPLOAD_FOLDER"] + filename)
-    # print(form[f"image_{10}"].raw_data)
+        filenames[f"image_{i}"] = "/" + app.config["UPLOAD_FOLDER"] + filename
 
     return render_template("test.html", form=form, error=error, form_title="Test page", filenames=filenames)
 
