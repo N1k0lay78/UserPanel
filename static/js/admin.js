@@ -1,10 +1,29 @@
 let max_count = 0;
 let image_id = 0;
 
+function set_image(url, input){
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        let fileName = 'hasFilename.' + xhr.responseURL.split('.')[xhr.responseURL.split('.').length - 1];
+        console.log(fileName);
+        let file = new File([xhr.response], fileName,{type:"image/" + xhr.responseURL.split('.')[xhr.responseURL.split('.').length - 1], lastModified:new Date().getTime()}, 'utf-8');
+        let container = new DataTransfer();
+        container.items.add(file);
+        input.files = container.files;
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
+}
+
 function on_start() {
     if (document.getElementsByClassName("form__images").length !== 0) {
         max_count = parseInt(document.getElementsByClassName("form__images")[0].getAttribute("data-count"));
         image_id = document.getElementsByClassName("form__images")[0].childElementCount + 1;
+        let inputs = document.getElementsByClassName("form__images")[0].children;
+        for (let i = 0; i < inputs.length; i++) {
+            set_image(inputs[i].getElementsByClassName("form__icon-preview")[0].getAttribute("src"), inputs[i].getElementsByClassName("form__icon")[0]);
+        }
         check_images_empty();
     }
 }

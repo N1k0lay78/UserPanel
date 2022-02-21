@@ -76,8 +76,7 @@ def test():
     for i, filename in enumerate(get_files_from("for_test"), start=1):
         filenames[f"image_{i}"] = "/" + app.config["UPLOAD_FOLDER"] + filename
     """
-
-    return render_template("test.html", form=form, error=error, form_title="Test page", filenames=[["/static/img/img.png", Image.open(app.config["UPLOAD_FOLDER"]+"img.png")]])
+    return render_template("test.html", form=form, error=error, form_title="Test page", filenames=["/static/img/img.png"])
 
 
 @app.route("/test2/", methods=['GET', 'POST'])
