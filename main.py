@@ -6,6 +6,7 @@ from data.user import User
 from user.user import user
 from session import db_session
 import config
+from PIL import Image
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -54,6 +55,9 @@ def favicon():
 def test():
     form = Test()
     error = "Error"
+    upload_folder = "for_test"
+    if request.method == "POST":
+        print(request.files)
     """
     upload_folder = "for_test"
     if request.method == "POST":
@@ -73,7 +77,7 @@ def test():
         filenames[f"image_{i}"] = "/" + app.config["UPLOAD_FOLDER"] + filename
     """
 
-    return render_template("test.html", form=form, error=error, form_title="Test page", filenames=["/static/img/hide.svg"])
+    return render_template("test.html", form=form, error=error, form_title="Test page", filenames=[["/static/img/img.png", Image.open(app.config["UPLOAD_FOLDER"]+"img.png")]])
 
 
 @app.route("/test2/", methods=['GET', 'POST'])
