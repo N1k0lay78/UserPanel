@@ -71,7 +71,7 @@ function add_image(form_images) {
 
 function check_images_empty() {
     let images_container = document.getElementsByClassName("form__images")[0];
-    if (images_container.children[images_container.children.length - 1].getElementsByClassName("form__icon-preview")[0].getAttribute("src") !== "/static/img/plus.svg"
+    if (images_container.children.length === 0 || images_container.children[images_container.children.length - 1].getElementsByClassName("form__icon-preview")[0].getAttribute("src") !== "/static/img/plus.svg"
         && images_container.childElementCount < max_count) {
         add_image(images_container);
     }
