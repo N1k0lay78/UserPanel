@@ -47,8 +47,16 @@ def get_files_from(folder, path=app.config["UPLOAD_FOLDER"], add_path=None):
     if os.path.exists(path+folder):
         files = os.listdir(path+folder)
     files = [(folder+"/"+f) if not add_path else ("/"+add_path+folder+"/"+f) for f in files]
-    print(files)
     return files
+
+
+def save_images(files, upload_folder):
+    clear_folder(upload_folder)
+    for ind, key in enumerate(dict(files).keys()):
+        if files[key].filename != "" and files[key].filename.split(".")[-1] in ALLOWED_EXTENSIONS:
+            files[key].save(
+                f'{app.config["UPLOAD_FOLDER"]}{upload_folder}/{ind}{create_random_name(50)}.{files[key].filename.split(".")[-1]}')
+            files[key].close()
 
 
 @login_manager.user_loader
@@ -78,13 +86,8 @@ def favicon():
 def test():
     form = Test()
     error = "Error"
-    upload_folder = "for_test"
     if request.method == "POST":
-        files = request.files
-        clear_folder("for_test")
-        for ind, key in enumerate(dict(files).keys()):
-            if files[key].filename != "" and files[key].filename.split(".")[-1] in ALLOWED_EXTENSIONS:
-                files[key].save(f'{app.config["UPLOAD_FOLDER"]}{upload_folder}/{ind}{create_random_name(50)}.{files[key].filename.split(".")[-1]}')
+        save_images(request.files, "for_test")
     return render_template("test.html", form=form, error=error, form_title="Test page", filenames=get_files_from("for_test", add_path=app.config["UPLOAD_FOLDER"]))
 
 
