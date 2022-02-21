@@ -2,9 +2,11 @@ let max_count = 0;
 let image_id = 0;
 
 function on_start() {
-    max_count = parseInt(document.getElementsByClassName("form__images")[0].getAttribute("data-count"));
-    image_id = document.getElementsByClassName("form__images")[0].childElementCount + 1;
-    check_images_empty();
+    if (document.getElementsByClassName("form__images").length !== 0) {
+        max_count = parseInt(document.getElementsByClassName("form__images")[0].getAttribute("data-count"));
+        image_id = document.getElementsByClassName("form__images")[0].childElementCount + 1;
+        check_images_empty();
+    }
 }
 
 on_start();
