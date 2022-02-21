@@ -3,7 +3,7 @@
     {% for elem in form %}
         {% if elem.type == "BooleanField" %}
             {{ check_box(elem, class=class) }}
-        {% elif elem.type != "CSRFTokenField" and elem.type != "SubmitField" and elem.type != "FileField"  %}
+        {% elif elem.type != "CSRFTokenField" and elem.type != "SubmitField" and elem.type != "FileField" and elem.name != "images_used" %}
             {{ input(elem, class=class) }}
         {% endif %}
     {% endfor %}
@@ -57,23 +57,21 @@
 {%- endmacro %}
 
 <!-- input images of form-->
-{% macro form_image(form, filenames, count=100) -%}
-<div class="form__images">
-    {% set ns = namespace(have=0) %}
-    {% for elem in form %}
-        {% if "image_" in elem.name and ns.have < count %}
-            {{ input_image(elem, filenames) }}
-            {% set ns.have = ns.have + 1 %}
+{% macro form_image(form, filenames, count) -%}
+<div class="form__images" data-count={{count}}>
+    {% for i in range(count) %}
+        {% if filenames|length > i %}
+            {{ input_image(i, filenames[i]) }}
         {% endif %}
     {% endfor %}
 </div>
 {%- endmacro %}
 
-{% macro input_image(field, filenames) -%}
+{% macro input_image(index, filename) -%}
 <div class="form__icon-wrapper">
     <div class="form__icon-container">
-        <img src="{{ filenames[field.name] }}" alt="" class="form__icon-preview">
-        {{ field(class="form__icon") }}
+        <img src="{{ filename }}" alt="" class="form__icon-preview">
+        <input type="file" name="image_{{ index }}" class="form__icon">
         <div class="form__icon-delete"></div>
     </div>
 </div>
@@ -85,6 +83,8 @@
         {% for elem in form %}
             {% if elem.type == "SubmitField" %}
                 {{ submit(elem, class=class) }}
+            {% elif elem.name == "images_used" %}
+                {{ elem(class='hidden', id='images_used') }}
             {% endif %}
         {% endfor %}
     </div>

@@ -54,6 +54,7 @@ def favicon():
 def test():
     form = Test()
     error = "Error"
+    """
     upload_folder = "for_test"
     if request.method == "POST":
         for i in range(1, 21):
@@ -70,8 +71,9 @@ def test():
     filenames = {}
     for i, filename in enumerate(get_files_from("for_test"), start=1):
         filenames[f"image_{i}"] = "/" + app.config["UPLOAD_FOLDER"] + filename
+    """
 
-    return render_template("test.html", form=form, error=error, form_title="Test page", filenames=filenames)
+    return render_template("test.html", form=form, error=error, form_title="Test page", filenames=["/static/img/hide.svg"])
 
 
 @app.route("/test2/", methods=['GET', 'POST'])
@@ -79,6 +81,11 @@ def test2():
     form = Test2()
     error = "Error"
     return render_template("test2.html", form=form, error=error, form_title="Test page")
+
+
+@app.route("/")
+def main_page():
+    return redirect('/test')
 
 
 app.register_blueprint(user, url_prefix="/user")

@@ -25,27 +25,6 @@ class Edit(FlaskForm):
 
 
 class Test(FlaskForm):
-    icon_1 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_1 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_2 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_3 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_4 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_5 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_6 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_7 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_8 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_9 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_10 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_11 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_12 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_13 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_14 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_15 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_16 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_17 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_18 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_19 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
-    image_20 = FileField('Header Image', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField("Отправить")
 
 

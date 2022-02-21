@@ -8,6 +8,10 @@ $light: #f0f0f0;
 $mid: #f0c8c0;
 $red: #f0a090;
 
+*.hidden {
+  display: none;
+}
+
 body {
   background: $light;
   width: 100%;

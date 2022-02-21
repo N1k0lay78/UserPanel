@@ -1,35 +1,30 @@
+let max_count = 0;
+let image_id = 0;
+
+function on_start() {
+    max_count = parseInt(document.getElementsByClassName("form__images")[0].getAttribute("data-count"));
+    image_id = document.getElementsByClassName("form__images")[0].childElementCount + 1;
+    check_images_empty();
+}
+
+on_start();
+
 function on_change_image_input() {
     if (this.files && this.files[0]) {
         let parent = this.parentElement;
         let fr = new FileReader();
         fr.onload = function () {
-            // console.log(parent)
             parent.getElementsByClassName("form__icon-preview")[0].setAttribute("src", fr.result);
             check_images_empty();
+            parent.getElementsByClassName("form__icon-delete")[0].classList.remove("hidden");
         }
         fr.readAsDataURL(this.files[0]);
     }
 }
 
 function delete_image() {
-    let parent = this.parentElement;
-    parent.getElementsByClassName("form__icon-preview")[0].setAttribute('src', "");
-    parent.getElementsByClassName("form__icon")[0].type = "text";
-    parent.getElementsByClassName("form__icon")[0].type = "file";
-    let image_inputs = parent.parentElement.parentElement.getElementsByClassName("form__icon-container");
-    let start_swap = false;
-    for (let i = 0; i < image_inputs.length - 1; i++) {
-        if (image_inputs[i] === parent) {
-            start_swap = true;
-        }
-        if (start_swap) {
-            image_inputs[i].getElementsByClassName("form__icon-preview")[0].setAttribute("src", image_inputs[i+1].getElementsByClassName("form__icon-preview")[0].getAttribute("src"));
-            image_inputs[i].getElementsByClassName("form__icon")[0].files = image_inputs[i+1].getElementsByClassName("form__icon")[0].files;
-            image_inputs[i+1].getElementsByClassName("form__icon-preview")[0].setAttribute('src', "");
-            image_inputs[i+1].getElementsByClassName("form__icon")[0].type = "text";
-            image_inputs[i+1].getElementsByClassName("form__icon")[0].type = "file";
-        }
-    }
+    let parent = this.parentElement.parentElement;
+    parent.remove();
     check_images_empty()
 }
 
@@ -43,39 +38,23 @@ for (let i=0; i < buttons_delete.length; i++) {
     buttons_delete[i].addEventListener("click", delete_image);
 }
 
-function check_images_empty() {
-    let images_input = document.getElementsByClassName("form__images");
-    for (let i=0; i < images_input.length; i++) {
-        let children = images_input[0].children;
-        let is_first = true;
-        console.log("ASDADSA");
-        for (let j=0; j < children.length; j++) {
-            console.log(children[j].getElementsByClassName("form__icon-preview")[0].getAttribute("src"))
-            if (!children[j].getElementsByClassName("form__icon")[0].files[0] && (children[j].getElementsByClassName("form__icon-preview")[0].getAttribute("src") === "" || children[j].getElementsByClassName("form__icon-preview")[0].getAttribute("src") === "/static/img/plus.svg")) {
-                children[j].getElementsByClassName("form__icon-delete")[0].classList.add("hidden");
-                if (is_first) {
-                    children[j].classList.remove("hidden");
-                    children[j].getElementsByClassName("form__icon-preview")[0].setAttribute("src", "/static/img/plus.svg");
-                    is_first = false;
-                } else {
-                    children[j].classList.add("hidden");
-                }
-            } else {
-                children[j].classList.remove("hidden");
-                children[j].getElementsByClassName("form__icon-delete")[0].classList.remove("hidden");
-            }
-        }
-    }
-    let icon_input = document.getElementsByClassName("form__icons");
-    for (let i = 0; i < icon_input.length; i++) {
-        let icon = icon_input[i].children[0];
-        if (icon.getElementsByClassName("form__icon-preview")[0].getAttribute("src") === "") {
-            icon.getElementsByClassName("form__icon-preview")[0].setAttribute("src", "/static/img/plus.svg");
-        }
-    }
+function add_image(form_images) {
+    element = document.createElement("div");
+    element.classList.add("form__icon-wrapper");
+    element.innerHTML = "<div class=\"form__icon-container\"><img src=\"/static/img/plus.svg\" alt=\"\" class=\"form__icon-preview\"><input type=\"file\" name=\"image_" + image_id + "\" class=\"form__icon\"><div class=\"form__icon-delete hidden\"></div></div>";
+    element.getElementsByClassName("form__icon")[0].addEventListener("change", on_change_image_input);
+    element.getElementsByClassName("form__icon-delete")[0].addEventListener("click", delete_image);
+    image_id += 1;
+    form_images.appendChild(element);
 }
 
-check_images_empty();
+function check_images_empty() {
+    let images_container = document.getElementsByClassName("form__images")[0];
+    if (images_container.children[images_container.children.length - 1].getElementsByClassName("form__icon-preview")[0].getAttribute("src") !== "/static/img/plus.svg"
+        && images_container.childElementCount < max_count) {
+        add_image(images_container);
+    }
+}
 
 function view_password() {
     this.classList.toggle("hide");
